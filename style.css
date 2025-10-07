@@ -786,7 +786,11 @@ body {
     font-size: 1.6rem;
     color: var(--color-text);
     margin-bottom: 10px;
-    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+    text-shadow:
+            0 0 8px rgba(0, 0, 0, 0.8),   /* wide soft glow */
+            0 0 4px rgba(0, 0, 0, 0.9),   /* tighter dark edge */
+            1px 1px 2px rgba(0, 0, 0, 0.9); /* crisp offset for contrast */
+
 }
 
 .carousel-caption p {
@@ -852,5 +856,27 @@ body {
     }
     .carousel-btn {
         font-size: 36px;
+    }
+}
+
+@media (max-width: 768px) {
+    .best-carousel {
+        height: auto;
+    }
+
+    .carousel-item img {
+        aspect-ratio: 16 / 9 !important; /* keep rectangle */
+        height: auto;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .carousel-track {
+        height: auto;
+    }
+
+    .carousel-item {
+        height: auto;
     }
 }
