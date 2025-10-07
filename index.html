@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VeryLancer</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/rocket-rinder" rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const track = document.querySelector(".carousel-track");
+        const items = document.querySelectorAll(".carousel-item");
+        const nextBtn = document.querySelector(".carousel-btn.next");
+        const prevBtn = document.querySelector(".carousel-btn.prev");
+
+        // Create progress bar
+        const progress = document.createElement("div");
+        progress.classList.add("carousel-progress");
+        document.querySelector(".best-carousel").appendChild(progress);
+
+        let index = 0;
+        let interval = null;
+        const intervalTime = 5000; // 5 seconds
+
+        function updateCarousel() {
+            track.style.transform = `translateX(-${index * 100}%)`;
+            resetProgress();
+        }
+
+        function nextSlide() {
+            index = (index + 1) % items.length;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            index = (index - 1 + items.length) % items.length;
+            updateCarousel();
+        }
+
+        function resetProgress() {
+            // restart animation
+            progress.style.transition = "none";
+            progress.style.width = "0%";
+            setTimeout(() => {
+                progress.style.transition = `width ${intervalTime}ms linear`;
+                progress.style.width = "100%";
+            }, 20);
+        }
+
+        function startAutoScroll() {
+            if (interval) clearInterval(interval);
+            resetProgress();
+            interval = setInterval(nextSlide, intervalTime);
+        }
+
+        // Manual controls
+        nextBtn.addEventListener("click", () => {
+            nextSlide();
+            startAutoScroll(); // reset timer
+        });
+        prevBtn.addEventListener("click", () => {
+            prevSlide();
+            startAutoScroll(); // reset timer
+        });
+
+        // Init
+        updateCarousel();
+        startAutoScroll();
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("searchInput");
+        const platformFilter = document.getElementById("platformFilter");
+        const gameCards = document.querySelectorAll(".game-card");
+
+        function filterGames() {
+            const searchValue = searchInput.value.toLowerCase();
+            const platformValue = platformFilter.value;
+
+            gameCards.forEach(card => {
+                const title = card.querySelector("h3").textContent.toLowerCase();
+                const hasGooglePlay = !!card.querySelector(".google-btn");
+                const hasItch = !!card.querySelector(".itch-btn");
+
+                const matchesSearch = title.includes(searchValue);
+                let matchesPlatform = false;
+
+                if (platformValue === "all") {
+                    matchesPlatform = true;
+                } else if (platformValue === "android") {
+                    matchesPlatform = hasGooglePlay;
+                } else if (platformValue === "pc") {
+                    matchesPlatform = hasItch;
+                }
+
+                const shouldShow = matchesSearch && matchesPlatform;
+
+                if (shouldShow) {
+                    // ✅ Always restore both class & display when card should appear
+                    card.style.display = "flex";
+                    requestAnimationFrame(() => card.classList.remove("hidden"));
+                } else {
+                    // ✅ Fade out first, then hide completely
+                    card.classList.add("hidden");
+                    setTimeout(() => {
+                        if (card.classList.contains("hidden")) {
+                            card.style.display = "none";
+                        }
+                    }, 150);
+                }
+            });
+        }
+
+        searchInput.addEventListener("input", filterGames);
+        platformFilter.addEventListener("change", filterGames);
+    });
+</script>
+
+<body>
+
+<div class="stars"></div>
+
+<!-- ======= NAVBAR ======= -->
+<nav class="top-nav">
+    <div class="nav-left">
+        <a href="index.html">
+            <img src="images/logo.png" alt="VeryLancer Logo" class="nav-logo" />
+        </a>
+        <a href="index.html" style="text-decoration:none; color:inherit;">
+            <span class="nav-name">VeryLancer</span>
+        </a>
+    </div>
+<!--    <div class="nav-right">-->
+<!--        <a href="#android-section">Android Games</a>-->
+<!--        <a href="#pc-section">PC Games</a>-->
+<!--    </div>-->
+</nav>
+
+<!-- ======= BANNER ======= -->
+<header>
+    <div class="banner">
+        <img src="images/banner.png" alt="VeryLancer Banner" />
+        <h1 class="logo">VERYLANCER</h1>
+    </div>
+</header>
+
+<!-- ======= SOCIAL LINKS ======= -->
+<div class="links social-links">
+    <a href="https://instagram.com/verylancer" target="_blank" title="Instagram">
+        <img src="images/icons/instagram.png" alt="Instagram">
+    </a>
+    <a href="https://verylancer.itch.io" target="_blank" title="Itch.io">
+        <img src="images/icons/itchio.png" alt="Itch.io">
+    </a>
+    <a href="https://reddit.com/u/verylancer" target="_blank" title="Reddit">
+        <img src="images/icons/reddit.png" alt="Reddit">
+    </a>
+    <a href="https://youtube.com/@verylancer" target="_blank" title="YouTube">
+        <img src="images/icons/youtube.png" alt="YouTube">
+    </a>
+    <a href="https://x.com/verylancer" target="_blank" title="Itch.io">
+        <img src="images/icons/x.png" alt="X">
+    </a>
+<!--    <a href="https://facebook.com/verylancer" target="_blank" title="Facebook">
+        <img src="images/icons/facebook.png" alt="Facebook">
+    </a>-->
+</div>
+
+<!-- ======= BEST GAMES ======= -->
+<section class="section" id="best-games">
+    <h2 class="section-title">Most Popular</h2>
+
+    <div class="best-carousel">
+        <button class="carousel-btn prev">❮</button>
+
+        <div class="carousel-track">
+            <div class="carousel-item">
+                <a href="games/neon-dash.html">
+                    <img src="images/best-games/neon-dash-best.png" alt="Neon Dash Thumbnail">
+                </a>
+                <div class="carousel-caption">
+                    <h3>Neon Dash</h3>
+                    <p>Win levels and reach the boss for a fight!</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <a href="games/neon-shooter.html">
+                    <img src="images/best-games/neon-shooter-best.png" alt="Neon Shooter Thumbnail">
+                </a>
+                <div class="carousel-caption">
+                    <h3>Neon Shooter</h3>
+                    <p>Endless space shooter with boss battles!</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <a href="games/neon-brick-breaker.html">
+                    <img src="images/best-games/neon-brick-breaker-best.png" alt="Neon Brick Breaker Thumbnail">
+                </a>
+                <div class="carousel-caption">
+                    <h3>Neon Brick Breaker</h3>
+                    <p>Enter the neon world and start breaking bricks!</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <a href="games/snowglobe-frenzy.html">
+                    <img src="images/best-games/snowglobe-frenzy-best.png" alt="Snowglobe Frenzy Thumbnail">
+                </a>
+                <div class="carousel-caption">
+                    <h3>Snowglobe Frenzy</h3>
+                    <p>Build your snowy village inside a snowglobe!</p>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <a href="games/kurbingo.html">
+                    <img src="images/best-games/kurbingo-best.png" alt="Kurbingo Thumbnail">
+                </a>
+                <div class="carousel-caption">
+                    <h3>Kurbingo</h3>
+                    <p>Play as the frog that eats insects!</p>
+                </div>
+            </div>
+        </div>
+
+        <button class="carousel-btn next">❯</button>
+    </div>
+</section>
+
+<!-- ======= GAMES ======= -->
+<section class="section" id="android-section">
+    <h2 class="section-title">All Games</h2>
+    
+    <!-- ======= FILTER BAR ======= -->
+    <div class="filter-bar">
+        <input type="text" id="searchInput" placeholder="Search games..." />
+        <select id="platformFilter">
+            <option value="all">All Platforms</option>
+            <option value="android">Android</option>
+            <option value="pc">PC</option>
+        </select>
+    </div>
+    
+    <div class="game-grid">
+
+        <!-- === Stellated === -->
+        <div class="game-card">
+            <a href="games/stellated.html">
+                <img src="images/thumbnails/stellated.png" alt="Stellated Thumbnail">
+            </a>
+            <div class="game-info">
+                <a href="games/stellated.html" style="text-decoration:none; color:inherit;">
+                    <h3>Stellated</h3>
+                </a>
+                <p>Small cube. Infinite Rage</p>
+                <div class="button-row">
+                    <a href="https://verylancer.itch.io/stellated" class="store-btn itch-btn">
+                        <img src="images/icons/itchio.png" alt=""> Itch.io
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        
+        <!-- === Mindscape === -->
+        <div class="game-card">
+            <a href="games/mindscape.html">
+                <img src="images/thumbnails/mindscape.png" alt="Mindscape Thumbnail">
+            </a>
+            <div class="game-info">
+                <a href="games/kurbingo.html" style="text-decoration:none; color:inherit;">
+                    <h3>Mindscape - Demo</h3>
+                </a>
+                <p>Boy lost in memories, trying to find the way out</p>
+                <div class="button-row">
+                    <a href="https://verylancer.itch.io/mindscape-demo" class="store-btn itch-btn">
+                        <img src="images/icons/itchio.png" alt=""> Itch.io
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        
+        <!-- === Dyna-Boy Dylan === -->
+        <div class="game-card">
+            <a href="games/dyna-boy-dylan.html">
+                <img src="images/thumbnails/dyna-boy-dylan.png" alt="Kurbingo Thumbnail">
+            </a>
+            <div class="game-info">
+                <a href="games/dyna-boy-dylan.html" style="text-decoration:none; color:inherit;">
+                    <h3>Dyna-Boy Dylan</h3>
+                </a>
+                <p>Explosive boy</p>
+                <div class="button-row">
+                    <a href="https://verylancer.itch.io/dyno-boy-dylan" class="store-btn itch-btn">
+                        <img src="images/icons/itchio.png" alt=""> Itch.io
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- === Snowglobe Frenzy === -->
+        <div class="game-card">
+            <a href="games/snowglobe-frenzy.html">
+                <img src="images/thumbnails/snowglobe-frenzy.png" alt="Snowglobe Frenzy Thumbnail">
+            </a>
+            <div class="game-info">
+                <a href="games/snowglobe-frenzy.html" style="text-decoration:none; color:inherit;">
+                    <h3>Snowglobe Frenzy</h3>
+                </a>
+                <p>Chill idle game inside Snowglobe where you build your village</p>
+                <div class="button-row">
+                    <a href="https://play.google.com/store/apps/details?id=com.VeryLancer.SnowglobeFrenzy" class="store-btn google-btn">
+                        <img src="images/icons/googleplay.png" alt=""> Google Play
+                    </a>
+                    <a href="https://verylancer.itch.io/snowglobe-frenzy" class="store-btn itch-btn">
+                        <img src="images/icons/itchio.png" alt=""> Itch.io
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- === Dimbub === -->
+        <div class="game-card">
+            <a href="games/dimbub.html">
+                <img src="images/thumbnails/dimbub.png" alt="Dimbub Thumbnail">
+            </a>
+            <div class="game-info">
+                <a href="games/dimbub.html" style="text-decoration:none; color:inherit;">
+                    <h3>Dimbub</h3>
+                </a>
+                <p>Play as a bubble and avoid obstacles</p>
+                <div class="button-row">
+                    <a href="https://verylancer.itch.io/dimbub" class="store-btn itch-btn">
+                        <img src="images/icons/itchio.png" alt=""> Itch.io
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- === Kurbingo === -->
+        <div class="game-card">
+            <a href="games/kurbingo.html">
+                <img src="images/thumbnails/kurbingo.png" alt="Kurbingo Thumbnail">
+            </a>
+            <div class="game-info">
+                <a href="games/kurbingo.html" style="text-decoration:none; color:inherit;">
+                    <h3>Kurbingo</h3>
+                </a>
+                <p>Play as the frog that eats insects</p>
+                <div class="button-row">
+                    <a href="https://play.google.com/store/apps/details?id=com.VeryLancer.Kurbingo" class="store-btn google-btn">
+                        <img src="images/icons/googleplay.png" alt=""> Google Play
+                    </a>
+                    <a href="https://verylancer.itch.io/kurbingo" class="store-btn itch-btn">
+                        <img src="images/icons/itchio.png" alt=""> Itch.io
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- === Lights Out === -->
+        <div class="game-card">
+            <a href="games/light-out.html">
+                <img src="images/thumbnails/lights-out.png" alt="Lights Out Thumbnail">
+            </a>
+            <div class="game-info">
+                <a href="games/light-out.html" style="text-decoration:none; color:inherit;">
+                    <h3>Lights Out</h3>
+                </a>
+                <p>Lights Out is a 3D puzzle game where you explore a town, stay in the light to keep sane, and solve puzzles to escape</p>
+                <div class="button-row">
+                    <a href="https://chxck.itch.io/lights-out" class="store-btn itch-btn">
+                        <img src="images/icons/itchio.png" alt=""> Itch.io
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- === Time Trek: UAE === -->
+        <div class="game-card">
+            <a href="games/time-treck.html">
+                <img src="images/thumbnails/time-treck.png" alt="Time Trek Thumbnail">
+            </a>
+            <div class="game-info">
+                <a href="games/kurbingo.html" style="text-decoration:none; color:inherit;">
+                    <h3>Time Treck: UAE</h3>
+                </a>
+                <p>Join the adventure of Abood and explore the past, present and future of UAE</p>
+                <div class="button-row">
+                    <a href="https://chxck.itch.io/time-treck" class="store-btn itch-btn">
+                        <img src="images/icons/itchio.png" alt=""> Itch.io
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- === The Fireball === -->
+        <div class="game-card">
+            <a href="games/the-fireball.html">
+                <img src="images/thumbnails/the-fireball.PNG" alt="The Fireball Thumbnail">
+            </a>
+            <div class="game-info">
+                <a href="games/the-fireball.html" style="text-decoration:none; color:inherit;">
+                    <h3>The Fireball</h3>
+                </a>
+                <p>A witch that casts fireball</p>
+                <div class="button-row">
+                    <a href="https://verylancer.itch.io/the-fireball" class="store-btn itch-btn">
+                        <img src="images/icons/itchio.png" alt=""> Itch.io
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- === DARO === -->
+        <div class="game-card">
+            <a href="games/daro-puzzles.html">
+                <img src="images/thumbnails/daro.png" alt="DARO Thumbnail">
+            </a>
+            <div class="game-info">
+                <a href="games/kurbingo.html" style="text-decoration:none; color:inherit;">
+                    <h3>DARO - Puzzles</h3>
+                </a>
+                <p>Play as the frog that eats insects</p>
+                <div class="button-row">
+                    <a href="https://verylancer.itch.io/daro-puzzles" class="store-btn itch-btn">
+                        <img src="images/icons/itchio.png" alt=""> Itch.io
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- === Ships'N Fight === -->
+        <div class="game-card">
+            <a href="games/shipsn-fight.html">
+                <img src="images/thumbnails/shipsn-fight.png" alt="Ships'N Fight Thumbnail">
+            </a>
+            <div class="game-info">
+                <a href="games/shipsn-fight.html" style="text-decoration:none; color:inherit;">
+                    <h3>Ships'N Fight</h3>
+                </a>
+                <p>Find friendly ships and fight together in bullet hell space battle</p>
+                <div class="button-row">
+                    <a href="https://verylancer.itch.io/shipsn-fight" class="store-btn itch-btn">
+                        <img src="images/icons/itchio.png" alt=""> Itch.io
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- === Neon Dungeon === -->
+        <div class="game-card">
+            <a href="games/neon-dungeon.html">
+                <img src="images/thumbnails/neon-dungeon.png" alt="Neon Dungeon Thumbnail">
+            </a>
+            <div class="game-info">
+                <a href="games/neon-dungeon.html" style="text-decoration:none; color:inherit;">
+                    <h3>Neon Dungeon</h3>
+                </a>
+                <p>Dive into neon dungeon with a Robot which can rewind its time and fight other machines</p>
+                <div class="button-row">
+                    <a href="https://verylancer.itch.io/neon-dungeon" class="store-btn itch-btn">
+                        <img src="images/icons/itchio.png" alt=""> Itch.io
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- === DrillBot === -->
+        <div class="game-card">
+            <a href="games/drillbot.html">
+                <img src="images/thumbnails/drillbot.png" alt="DrillBot Thumbnail">
+            </a>
+            <div class="game-info">
+                <a href="games/drillbot.html" style="text-decoration:none; color:inherit;">
+                    <h3>DrillBot</h3>
+                </a>
+                <p>Play as a robot and drill the way to the goal!</p>
+                <div class="button-row">
+                    <a href="https://play.google.com/store/apps/details?id=com.VeryLancer.DrillBot" class="store-btn google-btn">
+                        <img src="images/icons/googleplay.png" alt=""> Google Play
+                    </a>
+                    <a href="https://verylancer.itch.io/drillbot" class="store-btn itch-btn">
+                        <img src="images/icons/itchio.png" alt=""> Itch.io
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- === Neon Brick Breaker === -->
+        <div class="game-card">
+            <a href="games/neon-brick-breaker.html">
+                <img src="images/thumbnails/neon-brick-breaker.png" alt="Neon Brick Breaker Thumbnail">
+            </a>
+            <div class="game-info">
+                <a href="games/neon-brick-breaker.html" style="text-decoration:none; color:inherit;">
+                    <h3>Neon Brick Breaker</h3>
+                </a>
+                <p>Enter the neon world and start breaking bricks!</p>
+                <div class="button-row">
+                    <a href="https://play.google.com/store/apps/details?id=com.VeryLancer.NeonBrickBreaker" class="store-btn google-btn">
+                        <img src="images/icons/googleplay.png" alt=""> Google Play
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- === Neon Dash === -->
+        <div class="game-card">
+            <a href="games/neon-dash.html">
+                <img src="images/thumbnails/neon-dash.png" alt="Neon Dash Thumbnail">
+            </a>
+            <div class="game-info">
+                <a href="games/neon-dash.html" style="text-decoration:none; color:inherit;">
+                    <h3>Neon Dash</h3>
+                </a>
+                <p>Win levels and reach the boss for a fight!</p>
+                <div class="button-row">
+                    <a href="https://play.google.com/store/apps/details?id=com.VeryLancer.NeonDash" class="store-btn google-btn">
+                        <img src="images/icons/googleplay.png" alt=""> Google Play
+                    </a>
+                    <a href="https://verylancer.itch.io/neon-dash" class="store-btn itch-btn">
+                        <img src="images/icons/itchio.png" alt=""> Itch.io
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- === Neon Cube === -->
+        <div class="game-card">
+            <a href="games/neon-cube.html">
+                <img src="images/thumbnails/neon-cube.png" alt="Neon Cube Thumbnail">
+            </a>
+            <div class="game-info">
+                <a href="games/neon-cube.html" style="text-decoration:none; color:inherit;">
+                    <h3>Neon Cube</h3>
+                </a>
+                <p>Beat all Levels and try to get high score</p>
+                <div class="button-row">
+                    <a href="https://verylancer.itch.io/neon-cube" class="store-btn itch-btn">
+                        <img src="images/icons/itchio.png" alt=""> Itch.io
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- === Neon Shooter === -->
+        <div class="game-card">
+            <a href="games/neon-shooter.html">
+                <img src="images/thumbnails/neon-shooter.png" alt="Neon Dash Thumbnail">
+            </a>
+            <div class="game-info">
+                <a href="games/neon-shooter.html" style="text-decoration:none; color:inherit;">
+                    <h3>Neon Shooter</h3>
+                </a>
+                <p>Neon Shooter is an endless space shooter game with different enemies and boss battles!</p>
+                <div class="button-row">
+                    <a href="https://play.google.com/store/apps/details?id=com.VeryLancer.NeonShooter" class="store-btn google-btn">
+                        <img src="images/icons/googleplay.png" alt=""> Google Play
+                    </a>
+                    <a href="https://verylancer.itch.io/neon-shooter" class="store-btn itch-btn">
+                        <img src="images/icons/itchio.png" alt=""> Itch.io
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- === Neon Ball === -->
+        <div class="game-card">
+            <a href="games/neon-ball.html">
+                <img src="images/thumbnails/neon-ball.png" alt="Neon Cube Thumbnail">
+            </a>
+            <div class="game-info">
+                <a href="games/neon-ball.html" style="text-decoration:none; color:inherit;">
+                    <h3>Neon Ball</h3>
+                </a>
+                <p>Jump as high as you can!</p>
+                <div class="button-row">
+                    <a href="https://play.google.com/store/apps/details?id=com.VeryLancer.NeonBall" class="store-btn google-btn">
+                        <img src="images/icons/googleplay.png" alt=""> Google Play
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- === Neon Roll === -->
+        <div class="game-card">
+            <a href="games/neon-roll.html">
+                <img src="images/thumbnails/neon-roll.png" alt="Neon Roll Thumbnail">
+            </a>
+            <div class="game-info">
+                <a href="games/neon-shooter.html" style="text-decoration:none; color:inherit;">
+                    <h3>Neon Roll</h3>
+                </a>
+                <p>Neon Roll is a small single player platformer game with neon art style</p>
+                <div class="button-row">
+                    <a href="https://verylancer.itch.io/neon-roll" class="store-btn itch-btn">
+                        <img src="images/icons/itchio.png" alt=""> Itch.io
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- === Tankacha === -->
+        <div class="game-card">
+            <a href="games/tankacha.html">
+                <img src="images/thumbnails/tankacha.png" alt="Tankacha Thumbnail">
+            </a>
+            <div class="game-info">
+                <a href="games/tankacha.html" style="text-decoration:none; color:inherit;">
+                    <h3>Tankacha</h3>
+                </a>
+                <p>This is experimental game just for practice and fun</p>
+                <div class="button-row">
+                    <a href="https://verylancer.itch.io/tankacha" class="store-btn itch-btn">
+                        <img src="images/icons/itchio.png" alt=""> Itch.io
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>

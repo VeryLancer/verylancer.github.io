@@ -1,0 +1,856 @@
+/* ======= IMPORT FONTS ======= */
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+@import url('https://fonts.cdnfonts.com/css/rocket-rinder');
+
+/* ======= COLOR PALETTE ======= */
+:root {
+    --color-bg: #0c0c0c;
+    --color-text: #f5f5f5;
+    --color-subtext: #bdbdbd;
+    --color-accent: #e0e0e0;
+    --color-accent-dark: #6b6b6b;
+    --color-card: rgba(255, 255, 255, 0.04);
+    --color-border: rgba(255, 255, 255, 0.15);
+}
+
+/* ======= RESET ======= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-weight: 400;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: radial-gradient(ellipse at bottom, #050505 0%, #000 100%);
+    color: var(--color-text);
+    font-family: 'Russo One', sans-serif;
+    overflow-x: hidden;
+    padding-top: 70px;
+    letter-spacing: 0.5px;
+}
+
+/* ======= STARRY BACKGROUND ======= */
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('https://www.transparenttextures.com/patterns/stardust.png');
+    z-index: -1;
+    animation: moveStars 200s linear infinite;
+    opacity: 0.35;
+}
+
+@keyframes moveStars {
+    from { background-position: 0 0; }
+    to { background-position: -2000px 2000px; }
+}
+
+/* ======= NAVBAR ======= */
+.top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+    z-index: 1000;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-logo {
+    width: 42px;
+    height: 42px;
+    object-fit: cover;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Keep Rocket Rinder for brand name */
+.nav-name {
+    font-family: 'Rocket Rinder', sans-serif;
+    font-size: 1.4rem;
+    color: var(--color-text);
+    text-decoration: none;
+    text-shadow: 0 0 6px var(--color-accent);
+    letter-spacing: 1px;
+}
+
+.nav-right a {
+    color: var(--color-text);
+    text-decoration: none;
+    margin-left: 30px;
+    font-size: 1rem;
+    transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.nav-right a:hover {
+    color: var(--color-accent);
+    text-shadow: 0 0 8px var(--color-accent);
+}
+
+/* ======= BANNER ======= */
+.banner {
+    position: relative;
+    width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+}
+
+.banner img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    object-position: center;
+    background: transparent;
+    pointer-events: none;
+}
+
+/* Keep Rocket Rinder for banner logo */
+.logo {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Rocket Rinder', sans-serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    color: var(--color-text);
+    text-shadow: 0 0 10px var(--color-accent), 0 0 25px rgba(255, 255, 255, 0.1);
+    padding: clamp(10px, 4vw, 25px) clamp(20px, 6vw, 50px);
+    border-radius: 10px;
+    z-index: 2;
+    text-align: center;
+    white-space: nowrap;
+    letter-spacing: 2px;
+}
+
+/* ======= SOCIAL LINKS ======= */
+.links {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.links a {
+    color: var(--color-subtext);
+    text-decoration: none;
+    margin: 0 10px;
+    transition: 0.2s;
+    font-size: 0.95rem;
+}
+
+.links a:hover {
+    color: var(--color-accent);
+    text-shadow: 0 0 8px var(--color-accent);
+}
+
+/* ======= SECTIONS ======= */
+.section {
+    padding: 50px 60px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    color: var(--color-accent);
+    margin-bottom: 30px;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+    letter-spacing: 1px;
+}
+
+/* ======= GAME GRID ======= */
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+}
+
+@media (max-width: 900px) {
+    .game-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ======= GAME CARD ======= */
+.game-grid .game-card {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+.game-grid .game-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+}
+
+/* Left image */
+.game-grid .game-card > a {
+    flex: 2.3;
+    display: block;
+}
+
+.game-grid .game-card > a img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-right: 1px solid rgba(255, 255, 255, 0.15); /* subtle vertical line */
+}
+
+/* Right panel */
+.game-grid .game-info {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* ✅ pushes buttons to the bottom */
+    gap: 15px;
+}
+
+.game-grid .game-info h3 {
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+    color: #fff;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.game-grid .game-info p {
+    font-size: 0.9rem;
+    color: #dcdcdc;
+    line-height: 1.5;
+}
+
+/* Buttons inside grid only */
+.game-grid .button-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;  /* keep buttons anchored at bottom of the info panel */
+    gap: 12px;                  /* ensures even vertical spacing */
+    margin-top: auto;           /* pushes the whole row down */
+}
+
+/* ======= STORE BUTTONS ======= */
+.store-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 190px;
+    padding: 10px 16px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    color: var(--color-text);
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.store-btn img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+.store-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.google-btn:hover {
+    border-color: #34a853;
+    box-shadow: 0 0 10px #34a853;
+}
+.itch-btn:hover {
+    border-color: #fa5c5c;
+    box-shadow: 0 0 10px #fa5c5c;
+}
+
+/* ======= GAME PAGE ======= */
+.game-page {
+    margin-top: 60px;
+    text-align: center;
+}
+
+.game-header {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.game-thumb {
+    width: 420px;
+    max-width: 90%;
+    border-radius: 20px;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.08);
+}
+
+.game-details {
+    max-width: 500px;
+    text-align: left;
+}
+
+.game-details h1 {
+    font-size: 2rem;
+    color: #fff;
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.3);
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.game-details p {
+    font-size: 1rem;
+    color: #dcdcdc;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+/* ======= PLATFORM ICONS (Game Page) ======= */
+.platform-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.platform-icon img {
+    width: 150px;
+    height: auto;
+    transition: opacity 0.2s ease;
+}
+
+.platform-icon:hover img {
+    opacity: 0.75;
+}
+
+/* ======= SCREENSHOTS ======= */
+.screenshots {
+    margin-top: 50px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.screenshots img {
+    width: 320px;
+    max-width: 90%;
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: 0.3s;
+}
+
+.screenshots img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 15px rgba(255,255,255,0.2);
+}
+
+/* ======= LIGHTBOX ======= */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.lightbox-img {
+    max-width: 90%;
+    max-height: 80vh;
+    border-radius: 10px;
+    box-shadow: 0 0 25px rgba(255,255,255,0.2);
+}
+
+.lightbox .close {
+    position: absolute;
+    top: 25px;
+    right: 45px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    text-shadow: 0 0 10px #fff;
+    transition: 0.3s;
+}
+
+.lightbox .close:hover {
+    color: #bbb;
+}
+
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 50px;
+    font-weight: bold;
+    user-select: none;
+    padding: 0 50px;
+}
+
+.lightbox-nav span {
+    cursor: pointer;
+    text-shadow: 0 0 10px #fff;
+    transition: 0.3s;
+}
+
+.lightbox-nav span:hover {
+    color: #bbb;
+}
+
+/* ======= SOCIAL ICONS ======= */
+.social-links {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+
+.social-links a img {
+    width: 36px;
+    height: 36px;
+    filter: brightness(0.85);
+    opacity: 0.9;
+    transition: all 0.25s ease;
+}
+
+.social-links a img:hover {
+    filter: brightness(1.2);
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* ======= RESPONSIVE: STACK ON SMALL SCREENS ======= */
+@media (max-width: 1200px) {
+    .game-grid .game-card {
+        flex-direction: column; /* stack vertically */
+    }
+
+    .game-grid .game-card > a {
+        flex: none;
+        width: 100%;
+    }
+
+    .game-grid .game-info {
+        flex: none;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.65);
+        text-align: center;
+        align-items: center;
+        padding: 25px 20px;
+    }
+
+    .game-grid .button-row {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .game-grid .store-btn {
+        max-width: 240px;              /* slightly wider for readability */
+        width: 85%;
+        padding: 12px 18px;            /* more breathing room */
+        font-size: 0.95rem;            /* restore readable text */
+        justify-content: center;       /* center icon + text */
+        gap: 12px;
+    }
+    .game-grid .store-btn img {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* ======= GAME PAGE LAYOUT FIX ======= */
+.game-page .game-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 10px 0;
+}
+
+/* Text section stays anchored at top automatically */
+
+/* Button area at bottom */
+.game-page .button-row {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: auto;
+    align-items: flex-start;
+    width: 100%;
+}
+
+/* ======= STORE BUTTONS (Left aligned on desktop, centered on mobile) ======= */
+.game-page .store-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 220px;
+    min-height: 46px;
+    padding: 10px 16px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    color: var(--color-text);
+    font-size: 0.9rem;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+}
+
+.game-page .store-btn img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.game-page .store-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.game-page .google-btn:hover {
+    border-color: #34a853;
+    box-shadow: 0 0 10px #34a853;
+}
+
+.game-page .itch-btn:hover {
+    border-color: #fa5c5c;
+    box-shadow: 0 0 10px #fa5c5c;
+}
+
+/* ======= RESPONSIVE (vertical stacking + centered on mobile) ======= */
+@media (max-width: 900px) {
+    .game-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .game-page .game-details {
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        height: auto;
+        padding: 0;
+    }
+
+    .game-page .button-row {
+        align-items: center;
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    .game-page .store-btn {
+        justify-content: center;
+        max-width: 240px;
+        width: 85%;
+        gap: 12px;
+        text-align: center;
+    }
+
+    .game-page .store-btn img {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.about-game {
+    max-width: 900px;
+    margin: 0 auto;
+    color: var(--color-subtext);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    text-align: center;
+}
+
+.about-game p {
+    margin-bottom: 18px;
+}
+
+/* Description paragraph */
+.about-game .desc {
+    font-size: 1.05rem;
+    color: #e2e2e2;
+    line-height: 1.8;
+}
+
+/* ======= TRAILER SECTION ======= */
+.trailer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.trailer-wrapper {
+    position: relative;
+    width: 80%;
+    max-width: 900px;
+    aspect-ratio: 16 / 9; /* keeps perfect video proportions */
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.trailer-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Slight responsive adjustment */
+@media (max-width: 768px) {
+    .trailer-wrapper {
+        width: 95%;
+        border-radius: 8px;
+    }
+}
+
+.section-divider {
+    width: 80%;
+    max-width: 900px;
+    margin: 60px auto;
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ======= FILTER BAR ======= */
+.filter-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 40px;
+}
+
+.filter-bar input,
+.filter-bar select {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--color-text);
+    font-family: 'Russo One', sans-serif;
+    font-size: 0.95rem;
+    padding: 10px 16px;
+    border-radius: 10px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+/* Better text contrast */
+.filter-bar input::placeholder {
+    color: var(--color-subtext);
+    opacity: 0.8;
+}
+
+/* Focus glow */
+.filter-bar input:focus,
+.filter-bar select:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 10px var(--color-accent);
+}
+
+/* Custom dropdown arrow */
+.filter-bar select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border-radius: 12px;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%23f5f5f5' height='12' viewBox='0 0 24 24' width='12' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+    cursor: pointer;
+}
+
+/* Hover effect */
+.filter-bar input:hover,
+.filter-bar select:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Dropdown option styling (works in most browsers) */
+.filter-bar select option {
+    background: #0c0c0c;
+    color: #fff;
+    font-family: 'Russo One', sans-serif;
+}
+
+.game-card {
+    transition: opacity 0.15s linear;
+}
+
+.game-card.hidden {
+    opacity: 0;
+    transform: none; /* no shrinking */
+    pointer-events: none;
+    visibility: hidden;
+}
+
+/* ======= BEST GAMES SLIDESHOW ======= */
+.best-carousel {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto 30px;
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.6s ease;
+}
+
+.carousel-item {
+    min-width: 100%;
+    position: relative;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 450px; /* ⬆️ taller image */
+    object-fit: cover;
+    display: block;
+}
+
+.carousel-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 40px 35px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent);
+    text-align: left;
+}
+
+.carousel-caption h3 {
+    font-size: 1.6rem;
+    color: var(--color-text);
+    margin-bottom: 10px;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.carousel-caption p {
+    color: var(--color-subtext);
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 80%;
+}
+
+/* ======= Arrows (matching your lightbox style) ======= */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 45px;
+    font-weight: bold;
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    user-select: none;
+    text-shadow: 0 0 12px #fff;
+    transition: color 0.25s ease, text-shadow 0.25s ease;
+    z-index: 10;
+}
+
+/* ======= LOADING BAR ======= */
+.carousel-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ffffff 0%, #888888 100%);
+    width: 0%;
+    transition: width 5s linear;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+
+.carousel-btn:hover {
+    color: #bbb;
+    text-shadow: 0 0 14px #bbb;
+}
+
+.carousel-btn.prev {
+    left: 25px;
+}
+
+.carousel-btn.next {
+    right: 25px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .carousel-item img {
+        height: 300px;
+    }
+    .carousel-caption {
+        padding: 25px;
+    }
+    .carousel-caption h3 {
+        font-size: 1.3rem;
+    }
+    .carousel-btn {
+        font-size: 36px;
+    }
+}
